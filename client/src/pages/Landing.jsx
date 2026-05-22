@@ -59,7 +59,7 @@ export default function Landing() {
               <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
                 {" "}Dream Career
               </span>
-              {" "}with AI 🚀
+              {" "}with AI 
             </h1>
 
             <p className="text-gray-400 text-lg leading-relaxed mb-8 max-w-xl">
