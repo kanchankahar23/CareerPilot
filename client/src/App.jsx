@@ -5,6 +5,7 @@ import Register from './pages/Register'
 import SkillInput from './pages/SkillInput'
 import Dashboard from './pages/Dashboard'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 const PrivateRoute = ({ children }) => {
   return localStorage.getItem('token') ? children : <Navigate to="/login" />
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/skills" element={<PrivateRoute><SkillInput /></PrivateRoute>} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
       </Routes>
+      <Footer/>
     </>
   )
 }
