@@ -1,58 +1,196 @@
-import { useState } from 'react'
-import axios from 'axios'
-import { useNavigate, Link } from 'react-router-dom'
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import {
+  Sparkles,
+  User,
+  Mail,
+  LockKeyhole,
+  ArrowRight,
+} from "lucide-react";
 
 export default function Register() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' })
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+
+    setError("");
+
     try {
-      await axios.post('http://localhost:8000/auth/register', form)
-      navigate('/login')
+      await axios.post(
+        "http://localhost:8000/auth/register",
+        form
+      );
+
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.detail || 'Registration failed. Try again.')
+      setError(
+        err.response?.data?.detail ||
+          "Registration failed. Try again."
+      );
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="bg-white border border-gray-100 rounded-xl p-8 w-full max-w-sm">
-        <h2 className="text-xl font-medium mb-1">Create account</h2>
-        <p className="text-sm text-gray-500 mb-6">Start building your career roadmap today</p>
+    <div className="min-h-screen bg-[#020617] flex items-center justify-center px-4 overflow-hidden relative">
 
-        {error && <div className="bg-red-50 text-red-700 text-sm px-4 py-3 rounded-lg mb-4">{error}</div>}
+      {/* Glow Effects */}
+      <div className="absolute top-10 left-10 w-72 h-72 bg-violet-600/20 blur-3xl rounded-full"></div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div>
-            <label className="text-sm text-gray-500 block mb-1.5">Full name</label>
-            <input className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400"
-              placeholder="Kanchan Kahar" value={form.name}
-              onChange={e => setForm({ ...form, name: e.target.value })} required />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-600/20 blur-3xl rounded-full"></div>
+
+      {/* Register Card */}
+      <div className="relative z-10 w-full max-w-md bg-[#0f172a] border border-white/10 rounded-3xl p-8 shadow-2xl">
+
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+
+          <div className="bg-violet-600 p-4 rounded-2xl shadow-lg">
+            <Sparkles className="text-white" size={28} />
           </div>
-          <div>
-            <label className="text-sm text-gray-500 block mb-1.5">Email address</label>
-            <input type="email" className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400"
-              placeholder="you@example.com" value={form.email}
-              onChange={e => setForm({ ...form, email: e.target.value })} required />
+        </div>
+
+        {/* Heading */}
+        <div className="text-center mb-8">
+
+          <h2 className="text-3xl font-bold text-white mb-2">
+            Create Account 🚀
+          </h2>
+
+          <p className="text-gray-400 text-sm">
+            Start your AI-powered career journey today
+          </p>
+        </div>
+
+        {/* Error */}
+        {error && (
+          <div className="bg-red-500/10 border border-red-500/20 text-red-300 text-sm px-4 py-3 rounded-xl mb-5">
+            {error}
           </div>
+        )}
+
+        {/* Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+        >
+
+          {/* Name */}
           <div>
-            <label className="text-sm text-gray-500 block mb-1.5">Password</label>
-            <input type="password" className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-violet-200 focus:border-violet-400"
-              placeholder="Min 6 characters" value={form.password}
-              onChange={e => setForm({ ...form, password: e.target.value })} required />
+            <label className="text-sm text-gray-300 block mb-2">
+              Full Name
+            </label>
+
+            <div className="flex items-center gap-3 bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 focus-within:border-violet-500 transition">
+
+              <User
+                size={18}
+                className="text-violet-400"
+              />
+
+              <input
+                type="text"
+                placeholder="Kanchan Kahar"
+                value={form.name}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    name: e.target.value,
+                  })
+                }
+                required
+                className="bg-transparent w-full outline-none text-sm text-white placeholder:text-gray-500"
+              />
+            </div>
           </div>
-          <button className="w-full bg-violet-700 text-white py-2.5 rounded-lg text-sm hover:bg-violet-800">
-            Create account
+
+          {/* Email */}
+          <div>
+            <label className="text-sm text-gray-300 block mb-2">
+              Email Address
+            </label>
+
+            <div className="flex items-center gap-3 bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 focus-within:border-violet-500 transition">
+
+              <Mail
+                size={18}
+                className="text-violet-400"
+              />
+
+              <input
+                type="email"
+                placeholder="you@example.com"
+                value={form.email}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    email: e.target.value,
+                  })
+                }
+                required
+                className="bg-transparent w-full outline-none text-sm text-white placeholder:text-gray-500"
+              />
+            </div>
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="text-sm text-gray-300 block mb-2">
+              Password
+            </label>
+
+            <div className="flex items-center gap-3 bg-[#1e293b] border border-white/10 rounded-xl px-4 py-3 focus-within:border-violet-500 transition">
+
+              <LockKeyhole
+                size={18}
+                className="text-violet-400"
+              />
+
+              <input
+                type="password"
+                placeholder="Minimum 6 characters"
+                value={form.password}
+                onChange={(e) =>
+                  setForm({
+                    ...form,
+                    password: e.target.value,
+                  })
+                }
+                required
+                className="bg-transparent w-full outline-none text-sm text-white placeholder:text-gray-500"
+              />
+            </div>
+          </div>
+
+          {/* Submit */}
+          <button
+            className="w-full flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-700 text-white py-3 rounded-xl font-medium transition-all duration-300 hover:scale-[1.02]"
+          >
+            Create Account
+            <ArrowRight size={18} />
           </button>
         </form>
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Already have an account? <Link to="/login" className="text-violet-700">Sign in</Link>
+
+        {/* Footer */}
+        <p className="text-center text-sm text-gray-400 mt-6">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="text-violet-400 hover:text-violet-300 font-medium"
+          >
+            Sign In
+          </Link>
         </p>
       </div>
     </div>
-  )
+  );
 }
