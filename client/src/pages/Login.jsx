@@ -32,7 +32,7 @@ export default function Login() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("name", res.data.name);
 
-      navigate("/skills");
+      navigate("/career");
     } catch (err) {
       setError(
         err.response?.data?.detail ||
