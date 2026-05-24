@@ -21,10 +21,9 @@ export default function Navbar() {
   };
 
   const navLinkStyle = ({ isActive }) =>
-    `flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-      isActive
-        ? "bg-violet-600 text-white"
-        : "text-gray-300 hover:bg-[#1e293b] hover:text-white"
+    `flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${isActive
+      ? "bg-violet-600 text-white"
+      : "text-gray-300 hover:bg-[#1e293b] hover:text-white"
     }`;
 
   return (
@@ -60,15 +59,6 @@ export default function Navbar() {
           <House size={16} />
           Home
         </NavLink>
-
-        <NavLink
-          to="/dashboard"
-          className={navLinkStyle}
-        >
-          <LayoutDashboard size={16} />
-          Dashboard
-        </NavLink>
-
         <NavLink
           to="/career"
           className={navLinkStyle}
@@ -78,12 +68,15 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink
-          to="/skills"
+          to="/dashboard"
           className={navLinkStyle}
         >
-          <Rocket size={16} />
-          Roadmap
+          <LayoutDashboard size={16} />
+          Dashboard
         </NavLink>
+
+
+
       </div>
 
       {/* Right Section */}
