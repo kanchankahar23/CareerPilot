@@ -28,6 +28,7 @@ export default function Onboarding() {
   const [step, setStep] = useState(1);
   const [selectedInterests, setSelectedInterests] = useState([]);
   const [selectedRole, setSelectedRole] = useState("");
+  
   const navigate = useNavigate();
 
   const toggleInterest = (id) => {
