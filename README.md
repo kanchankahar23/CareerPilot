@@ -1,4 +1,4 @@
-# CareerPilot 🚀
+# CareerPilot 
 
 CareerPilot is an AI-powered career guidance and recommendation platform that helps users discover the right career path based on their skills, interests, and goals. The platform provides personalized learning roadmaps, job recommendations, and an AI assistant that guides users by answering career-related queries in real time.
 
@@ -6,17 +6,17 @@ The system is designed to help students and job seekers make better career decis
 
 ---
 
-## 🌟 Features
+##  Features
 
-- 🤖 AI Career Assistant for career guidance
-- 🛣️ Personalized Roadmap Generation
-- 💼 Job Recommendations based on skills and interests
-- 📚 Skill-based Learning Suggestions
-- 🔐 Secure User Authentication
-- 💬 Real-time AI Query Support
-- 🎯 Career Path Recommendations
-- ⚡ Responsive and Modern UI
-- 🌐 Full Stack Web Application
+-  AI Career Assistant for career guidance
+-  Personalized Roadmap Generation
+-  Job Recommendations based on skills and interests
+-  Skill-based Learning Suggestions
+-  Secure User Authentication
+-  Real-time AI Query Support
+-  Career Path Recommendations
+-  Responsive and Modern UI
+-  Full Stack Web Application
 
 ---
 
