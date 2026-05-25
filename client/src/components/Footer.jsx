@@ -2,6 +2,7 @@ import { GitBranch, Link2, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight,Mail } from "lucide-react";
 export default function Footer() {
+  
   return (
     <footer className="relative border-t border-white/10 bg-[#020617] overflow-hidden">
 
