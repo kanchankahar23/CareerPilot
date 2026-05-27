@@ -274,6 +274,7 @@ export default function Onboarding() {
   const navigate = useNavigate();
 
   // toggle interest
+  
   const toggleInterest = (id) => {
     setSelectedInterests((prev) =>
       prev.includes(id)
