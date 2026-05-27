@@ -5,6 +5,7 @@ import { Briefcase, MapPin, IndianRupee, Loader2 } from "lucide-react";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
