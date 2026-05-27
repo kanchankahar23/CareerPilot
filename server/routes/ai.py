@@ -21,7 +21,7 @@ async def career_chat(data: dict):
         raise HTTPException(status_code=400, detail="Prompt is required")
 
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[
             {
                 "role": "system",
@@ -87,7 +87,7 @@ Return ONLY a valid JSON object, no extra text:
 """
 
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a career roadmap expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
@@ -135,7 +135,7 @@ Return ONLY a valid JSON array, no extra text:
 """
 
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a job listing expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
@@ -199,7 +199,7 @@ Return ONLY a valid JSON object, no extra text:
 """
 
     completion = client.chat.completions.create(
-        model="llama3-8b-8192",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "You are a learning resources expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
