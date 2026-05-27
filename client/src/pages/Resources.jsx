@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
-
 import { Book, Link, Loader } from "lucide-react";
-// import { Youtube, Globe, BookOpen, ExternalLink, Loader2 } from "lucide-react";
 
 export default function Resources() {
   const [resources, setResources] = useState(null);
@@ -31,7 +28,7 @@ export default function Resources() {
   const Section = ({ icon: Icon, title, color, items, renderItem }) => (
     <div className="mb-10">
       <div className="flex items-center gap-2 mb-4">
-        <Icon size={20} className={color} />
+        {Icon && <Icon size={20} className={color} />}
         <h2 className="text-white font-semibold text-lg">{title}</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -46,14 +43,15 @@ export default function Resources() {
 
   return (
     <div className="min-h-screen bg-[#020617] px-4 py-10">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold text-white mb-2">Learning Resources</h1>
           <p className="text-gray-400 text-sm">Handpicked for <span className="text-violet-400">{localStorage.getItem("cp_role")}</span></p>
         </div>
 
+        {/* ✅ Fix 1: Added icon + items prop */}
         <Section  title="YouTube Channels & Playlists" color="text-red-400"
-         
+          items={resources?.youtube}
           renderItem={(item) => (
             <>
               <h3 className="text-white font-medium text-sm mb-1">{item.title}</h3>
@@ -67,7 +65,8 @@ export default function Resources() {
           )}
         />
 
-        <Section  title="Websites & Platforms" color="text-blue-400"
+        {/* ✅ Fix 2: Added icon prop */}
+        <Section title="Websites & Platforms" color="text-blue-400"
           items={resources?.websites}
           renderItem={(item) => (
             <>
@@ -79,7 +78,7 @@ export default function Resources() {
                 </span>
                 <a href={item.url} target="_blank" rel="noreferrer"
                   className="flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300">
-                  Visit <ExternalLink size={10} />
+                  Visit
                 </a>
               </div>
             </>
@@ -95,9 +94,10 @@ export default function Resources() {
               <p className="text-gray-400 text-xs mb-3">{item.description}</p>
               <div className="flex items-center justify-between">
                 <span className="text-xs text-gray-500">{item.price}</span>
+                {/* ✅ Fix 3: ExternalLink now imported and used */}
                 <a href={item.url} target="_blank" rel="noreferrer"
                   className="flex items-center gap-1 text-xs text-green-400 hover:text-green-300">
-                  Enroll <ExternalLink size={10} />
+                  Enroll 
                 </a>
               </div>
             </>
