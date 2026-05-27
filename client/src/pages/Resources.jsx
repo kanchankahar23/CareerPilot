@@ -14,7 +14,7 @@ export default function Resources() {
     const role = localStorage.getItem("cp_role") || "";
     if (!role) { navigate("/onboarding"); return; }
 
-    axios.post("i/resources", { interests, role })
+    axios.post("http://localhost:8000/ai/resources", { interests, role })
       .then((res) => { setResources(res.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
