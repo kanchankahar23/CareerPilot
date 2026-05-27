@@ -1,98 +1,328 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  LayoutDashboard,
+  Map,
+  BookOpen,
+  Briefcase,
+  MessageSquare,
+  TrendingUp,
+  Bell,
+  Search,
+  ChevronRight,
+  Sparkles,
+  Target,
+  Trophy,
+  Clock3,
+} from "lucide-react";
 
 export default function Dashboard() {
-  const [data, setData] = useState(null)
-  const [goal, setGoal] = useState('')
-  const navigate = useNavigate()
+  const [goal, setGoal] = useState("");
+  const [userName, setUserName] = useState("User");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const roadmap = localStorage.getItem('roadmap')
-    if (!roadmap) { navigate('/skills'); return; }
-    setData(JSON.parse(roadmap))
-    setGoal(localStorage.getItem('goal') || '')
-  }, [])
+    const savedGoal =
+      localStorage.getItem("goal") ||
+      localStorage.getItem("cp_role") ||
+      "Frontend Developer";
 
-  if (!data) return <div className="text-center py-20 text-gray-400">Loading...</div>
+    // USER NAME FROM LOGIN
+    const savedUser =
+      localStorage.getItem("userName") ||
+      localStorage.getItem("name") ||
+      localStorage.getItem("username") ||
+      "Kanchan";
+
+    setGoal(savedGoal);
+    setUserName(savedUser);
+  }, []);
+
+  const cards = [
+    {
+      title: "Roadmap",
+      desc: "Step-by-step learning path",
+      icon: Map,
+      route: "/roadmap",
+    },
+    {
+      title: "Resources",
+      desc: "Courses & learning materials",
+      icon: BookOpen,
+      route: "/resources",
+    },
+    {
+      title: "Jobs",
+      desc: "Recommended opportunities",
+      icon: Briefcase,
+      route: "/jobs",
+    },
+    {
+      title: "AI Mentor",
+      desc: "Career guidance assistant",
+      icon: MessageSquare,
+      route: "/chat",
+    },
+  ];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-2xl font-medium mb-1">Your career roadmap</h1>
-        <p className="text-sm text-gray-500">Personalized by AI based on your skills and goal</p>
-        <span className="inline-flex items-center gap-1 bg-violet-50 text-violet-700 text-xs px-3 py-1 rounded-full mt-2">
-          🎯 {goal}
-        </span>
-      </div>
+    <div className="min-h-screen bg-[#0B1120] text-white flex">
 
-      {/* Roadmap */}
-      <section className="mb-8">
-        <h2 className="font-medium mb-4 flex items-center gap-2">🗺️ Learning roadmap</h2>
-        <div className="flex flex-col gap-3">
-          {data.roadmap?.map((step, i) => (
-            <div key={i} className="flex gap-3">
-              <div className="w-7 h-7 rounded-full bg-violet-50 text-violet-700 text-xs font-medium flex items-center justify-center flex-shrink-0 mt-0.5">
-                {step.step}
+      {/* SIDEBAR */}
+      <aside className="w-72 border-r border-white/5 bg-[#0F172A] hidden lg:flex flex-col justify-between">
+
+        <div>
+
+          {/* LOGO */}
+          <div className="px-8 py-7 border-b border-white/5">
+
+            <div className="flex items-center gap-3">
+
+              <div className="w-11 h-11 rounded-2xl bg-violet-500 flex items-center justify-center">
+                <Sparkles size={20} />
               </div>
-              <div className="bg-white border border-gray-100 rounded-xl px-4 py-3 flex-1">
-                <h3 className="font-medium text-sm mb-1">{step.title}</h3>
-                <p className="text-xs text-gray-500 leading-relaxed">{step.description}</p>
-                <span className="inline-block mt-2 text-xs bg-violet-50 text-violet-700 px-2 py-0.5 rounded-full">
-                  {step.duration}
-                </span>
+
+              <div>
+                <h2 className="font-semibold text-lg">
+                  CareerPilot
+                </h2>
+
+                <p className="text-xs text-gray-400">
+                  AI Career Platform
+                </p>
               </div>
+
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* Skill Gaps */}
-      <section className="mb-8">
-        <h2 className="font-medium mb-4">⚠️ Skill gaps to close</h2>
-        <div className="flex flex-wrap gap-2">
-          {data.skill_gaps?.map((gap, i) => (
-            <span key={i} className="text-xs px-3 py-1 bg-red-50 text-red-700 rounded-full">{gap}</span>
-          ))}
-        </div>
-      </section>
+          </div>
 
-      {/* Resources */}
-      <section className="mb-8">
-        <h2 className="font-medium mb-4">📚 Learning resources</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {data.resources?.map((r, i) => (
-            <a key={i} href={r.url} target="_blank" rel="noreferrer"
-              className="bg-white border border-gray-100 rounded-xl p-4 hover:bg-gray-50 transition block">
-              <span className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full">{r.type}</span>
-              <p className="font-medium text-sm mt-2 mb-1">{r.title}</p>
-              <p className="text-xs text-violet-600 truncate">{r.url}</p>
-            </a>
-          ))}
-        </div>
-      </section>
+          {/* MENU */}
+          <div className="p-5 space-y-2">
 
-      {/* Jobs */}
-      <section className="mb-8">
-        <h2 className="font-medium mb-4">💼 Jobs you can apply for now</h2>
-        <div className="grid grid-cols-2 gap-3">
-          {data.jobs?.map((job, i) => (
-            <div key={i} className="bg-white border border-gray-100 rounded-xl p-4">
-              <h3 className="font-medium text-sm mb-1">{job.title}</h3>
-              <span className="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">{job.level}</span>
-              <div className="flex flex-wrap gap-1 mt-3">
-                {job.skills_needed?.map((s, j) => (
-                  <span key={j} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{s}</span>
-                ))}
+            <button className="w-full flex items-center gap-3 bg-violet-500/10 text-violet-400 px-4 py-3 rounded-xl">
+              <LayoutDashboard size={18} />
+              Dashboard
+            </button>
+
+            <button
+              onClick={() => navigate("/roadmap")}
+              className="w-full flex items-center gap-3 hover:bg-white/5 text-gray-300 px-4 py-3 rounded-xl transition-all"
+            >
+              <Map size={18} />
+              Roadmap
+            </button>
+
+            <button
+              onClick={() => navigate("/resources")}
+              className="w-full flex items-center gap-3 hover:bg-white/5 text-gray-300 px-4 py-3 rounded-xl transition-all"
+            >
+              <BookOpen size={18} />
+              Resources
+            </button>
+
+            <button
+              onClick={() => navigate("/jobs")}
+              className="w-full flex items-center gap-3 hover:bg-white/5 text-gray-300 px-4 py-3 rounded-xl transition-all"
+            >
+              <Briefcase size={18} />
+              Jobs
+            </button>
+
+            <button
+              onClick={() => navigate("/chat")}
+              className="w-full flex items-center gap-3 hover:bg-white/5 text-gray-300 px-4 py-3 rounded-xl transition-all"
+            >
+              <MessageSquare size={18} />
+              AI Mentor
+            </button>
+
+          </div>
+
+        </div>
+
+        {/* BOTTOM */}
+        <div className="p-5">
+
+          <div className="bg-gradient-to-br from-violet-500/20 to-indigo-500/10 border border-violet-500/20 rounded-2xl p-5">
+
+            <Trophy className="text-yellow-400 mb-4" size={28} />
+
+            <h3 className="font-semibold mb-2">
+              Keep Growing 🚀
+            </h3>
+
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Build projects consistently and improve your skills daily.
+            </p>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+      {/* MAIN */}
+      <main className="flex-1">
+
+        {/* TOPBAR */}
+        <div className="h-20 border-b border-white/5 bg-[#0F172A]/80 backdrop-blur-xl px-6 flex items-center justify-between">
+
+          {/* SEARCH */}
+          <div className="hidden md:flex items-center gap-3 bg-[#111827] border border-white/5 rounded-xl px-4 py-3 w-[350px]">
+
+            <Search size={18} className="text-gray-500" />
+
+            <input
+              type="text"
+              placeholder="Search roadmap, jobs, resources..."
+              className="bg-transparent outline-none text-sm w-full placeholder:text-gray-500"
+            />
+
+          </div>
+
+          {/* RIGHT */}
+          <div className="flex items-center gap-4 ml-auto">
+
+            <button className="w-11 h-11 rounded-xl bg-[#111827] border border-white/5 flex items-center justify-center hover:bg-white/5 transition-all">
+              <Bell size={18} className="text-gray-300" />
+            </button>
+
+            <div className="flex items-center gap-3 bg-[#111827] border border-white/5 px-4 py-2 rounded-xl">
+
+              {/* USER ICON */}
+              <div className="w-10 h-10 rounded-full bg-violet-500 flex items-center justify-center font-semibold uppercase">
+                {userName.charAt(0)}
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      <button onClick={() => navigate('/skills')}
-        className="flex items-center gap-2 text-sm px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-        🔄 Generate new roadmap
-      </button>
+              {/* USER INFO */}
+              <div className="hidden sm:block">
+                <h4 className="text-sm font-medium">
+                  Hello {userName} 👋
+                </h4>
+
+                <p className="text-xs text-gray-400">
+                  {goal}
+                </p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* CONTENT */}
+        <div className="p-6">
+
+          {/* HERO */}
+          <div className="bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/10 rounded-3xl p-8 mb-8">
+
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+
+              <div>
+
+                <div className="inline-flex items-center gap-2 bg-violet-500/10 text-violet-400 px-4 py-2 rounded-full text-sm mb-5">
+                  <Sparkles size={16} />
+                  AI Career Dashboard
+                </div>
+
+                <h1 className="text-4xl font-bold leading-tight mb-4">
+                  Welcome back, {userName} 👋
+                </h1>
+
+                <p className="text-gray-400 text-lg max-w-2xl leading-relaxed">
+                  Continue building your journey toward becoming a successful{" "}
+                  <span className="text-violet-400 font-medium">
+                    {goal}
+                  </span>.
+                </p>
+
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+
+                <div className="bg-[#111827] border border-white/5 rounded-2xl p-5 min-w-[160px]">
+
+                  <TrendingUp
+                    className="text-green-400 mb-3"
+                    size={24}
+                  />
+
+                  <h3 className="text-2xl font-semibold">
+                    85%
+                  </h3>
+
+                  <p className="text-sm text-gray-400">
+                    Career Growth
+                  </p>
+
+                </div>
+
+                <div className="bg-[#111827] border border-white/5 rounded-2xl p-5 min-w-[160px]">
+
+                  <Clock3
+                    className="text-violet-400 mb-3"
+                    size={24}
+                  />
+
+                  <h3 className="text-2xl font-semibold">
+                    Daily
+                  </h3>
+
+                  <p className="text-sm text-gray-400">
+                    Learning Progress
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* CARDS */}
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+
+            {cards.map((item, index) => {
+              const Icon = item.icon;
+
+              return (
+                <button
+                  key={index}
+                  onClick={() => navigate(item.route)}
+                  className="bg-[#111827] border border-white/5 hover:border-violet-500/20 rounded-2xl p-6 text-left transition-all duration-300 hover:-translate-y-1"
+                >
+
+                  <div className="w-14 h-14 rounded-2xl bg-violet-500/10 flex items-center justify-center mb-5">
+                    <Icon className="text-violet-400" size={25} />
+                  </div>
+
+                  <h3 className="text-xl font-semibold mb-2">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-400 leading-relaxed mb-5">
+                    {item.desc}
+                  </p>
+
+                  <div className="flex items-center gap-2 text-violet-400 text-sm font-medium">
+                    Open
+                    <ChevronRight size={16} />
+                  </div>
+
+                </button>
+              );
+            })}
+
+          </div>
+
+        </div>
+
+      </main>
+
     </div>
-  )
+  );
 }
