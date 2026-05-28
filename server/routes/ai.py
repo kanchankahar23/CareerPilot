@@ -13,71 +13,28 @@ router = APIRouter(prefix="/ai", tags=["AI"])
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
-# ── 🔥 /career-chat (UPDATED WITH STRUCTURED JSON) ─────────────────────────────
+# ── /career-chat ──────────────────────────────────────
 @chat_router.post("/career-chat")
 async def career_chat(data: dict):
     prompt = data.get("prompt")
     if not prompt:
         raise HTTPException(status_code=400, detail="Prompt is required")
 
-    # ✅ YOUR UPDATED SYSTEM PROMPT (STRICT JSON OUTPUT)
-    system_prompt = """
-You are CareerPilot AI, a professional career assistant for students and developers.
-
-You MUST always return response in STRICT JSON format only.
-
-Do NOT include any extra text, explanation, or markdown.
-
-JSON FORMAT:
-
-{
-  "title": "short title",
-  "summary": "clear explanation in 2-3 lines",
-  "points": ["point 1", "point 2", "point 3"],
-  "steps": ["step 1", "step 2", "step 3"],
-  "example": "real-world example or project idea"
-}
-
-RULES:
-- Always return valid JSON
-- Keep language simple and clear
-- Focus on career, coding, interview, roadmap, resume, DSA, web dev
-- If question is simple, still return structured format
-- Never return plain text
-"""
-
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
-            {"role": "system", "content": system_prompt},
+            {
+                "role": "system",
+                "content": (
+                    "You are CareerPilot AI, a helpful career advisor. "
+                    "Help users with resume tips, job searching, interview prep, "
+                    "skill development, and career planning. Be concise and practical."
+                )
+            },
             {"role": "user", "content": prompt}
         ]
     )
-
-    raw = completion.choices[0].message.content.strip()
-
-    # 🔥 SAFE JSON PARSING (VERY IMPORTANT)
-    try:
-        if "```" in raw:
-            raw = raw.split("```")[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
-
-        parsed = json.loads(raw.strip())
-
-    except Exception:
-        # fallback so frontend never breaks
-        parsed = {
-            "title": "Response",
-            "summary": raw,
-            "points": [],
-            "steps": [],
-            "example": ""
-        }
-
-    return {
-        "response": parsed
-    }
+    return {"response": completion.choices[0].message.content}
 
 
 # ── /ai/roadmap ───────────────────────────────────────
@@ -92,13 +49,47 @@ async def generate_roadmap(data: dict):
     prompt = f"""
 You are a career roadmap expert. Generate a detailed career roadmap for someone who wants to become a "{role}" with interests in {', '.join(interests)}.
 
-Return ONLY a valid JSON object, no extra text.
+Return ONLY a valid JSON object, no extra text:
+{{
+  "role": "{role}",
+  "duration": "6-12 months",
+  "phases": [
+    {{
+      "phase": 1,
+      "title": "Foundation",
+      "duration": "1-2 months",
+      "skills": ["skill1", "skill2", "skill3"],
+      "description": "What to learn in this phase"
+    }},
+    {{
+      "phase": 2,
+      "title": "Core Skills",
+      "duration": "2-3 months",
+      "skills": ["skill1", "skill2"],
+      "description": "What to learn in this phase"
+    }},
+    {{
+      "phase": 3,
+      "title": "Advanced & Projects",
+      "duration": "2-3 months",
+      "skills": ["skill1", "skill2"],
+      "description": "What to learn in this phase"
+    }},
+    {{
+      "phase": 4,
+      "title": "Job Ready",
+      "duration": "1-2 months",
+      "skills": ["Portfolio", "Resume", "Interview Prep"],
+      "description": "Prepare for job applications"
+    }}
+  ]
+}}
 """
 
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
-            {"role": "system", "content": "You are a career roadmap expert. Always respond with valid JSON only."},
+            {"role": "system", "content": "You are a career roadmap expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
         ]
     )
@@ -129,13 +120,24 @@ async def generate_jobs(data: dict):
     prompt = f"""
 Generate 6 realistic job listings for a "{role}" with interests in {', '.join(interests)}.
 
-Return ONLY a valid JSON array.
+Return ONLY a valid JSON array, no extra text:
+[
+  {{
+    "title": "Job Title",
+    "company": "Company Name",
+    "location": "City, Country or Remote",
+    "type": "Full-time",
+    "salary": "₹8-12 LPA",
+    "skills": ["skill1", "skill2", "skill3"],
+    "description": "Brief job description in 1-2 lines"
+  }}
+]
 """
 
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
-            {"role": "system", "content": "You are a job listing expert. Always respond with valid JSON only."},
+            {"role": "system", "content": "You are a job listing expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
         ]
     )
@@ -164,15 +166,42 @@ async def generate_resources(data: dict):
         raise HTTPException(status_code=400, detail="Role is required")
 
     prompt = f"""
-Suggest learning resources for "{role}" with interests in {', '.join(interests)}.
+Suggest learning resources for someone who wants to become a "{role}" with interests in {', '.join(interests)}.
 
-Return ONLY valid JSON.
+Return ONLY a valid JSON object, no extra text:
+{{
+  "youtube": [
+    {{
+      "title": "Channel or Playlist Name",
+      "channel": "Channel Name",
+      "url": "https://youtube.com/...",
+      "description": "What you will learn"
+    }}
+  ],
+  "websites": [
+    {{
+      "title": "Website Name",
+      "url": "https://...",
+      "description": "What you will learn",
+      "free": true
+    }}
+  ],
+  "courses": [
+    {{
+      "title": "Course Name",
+      "platform": "Coursera / Udemy / freeCodeCamp",
+      "url": "https://...",
+      "price": "Free or Paid",
+      "description": "What you will learn"
+    }}
+  ]
+}}
 """
 
     completion = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
         messages=[
-            {"role": "system", "content": "You are a learning resources expert. Always respond with valid JSON only."},
+            {"role": "system", "content": "You are a learning resources expert. Always respond with valid JSON only. No markdown, no explanation."},
             {"role": "user", "content": prompt}
         ]
     )
