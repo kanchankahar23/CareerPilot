@@ -42,7 +42,7 @@ export default function Chat() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/career-chat",
+        "http://import.meta.env.VITE_API_URL/career-chat",
         {
           prompt: userMsg
         }

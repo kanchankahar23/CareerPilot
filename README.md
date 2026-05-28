@@ -100,7 +100,7 @@ uvicorn main:app --reload
 Backend runs on:
 
 ```bash
-http://localhost:8000
+http://import.meta.env.VITE_API_URL
 ```
 
 ---

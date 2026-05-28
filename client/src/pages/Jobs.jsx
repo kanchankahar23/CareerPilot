@@ -15,7 +15,7 @@ export default function Jobs() {
     const role = localStorage.getItem("cp_role") || "";
     if (!role) { navigate("/onboarding"); return; }
 
-    axios.post("http://localhost:8000/ai/jobs", { interests, role })
+    axios.post("http://import.meta.env.VITE_API_URL/ai/jobs", { interests, role })
       .then((res) => { setJobs(res.data.jobs); setLoading(false); })
       .catch(() => { setError("Failed to load jobs."); setLoading(false); });
   }, []);
