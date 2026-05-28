@@ -13,7 +13,7 @@ export default function Resources() {
     const role = localStorage.getItem("cp_role") || "";
     if (!role) { navigate("/onboarding"); return; }
 
-    axios.post(`${import.meta.env.VITE_API_URL}/ai/resources`, { interests, role })
+    axios.post(`${import.meta.env.VITE_API_URL}ai/resources`, { interests, role })
       .then((res) => { setResources(res.data); setLoading(false); })
       .catch(() => setLoading(false));
   }, []);
