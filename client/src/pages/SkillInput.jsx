@@ -21,7 +21,7 @@ export default function SkillInput() {
     setLoading(true)
     try {
       const token = localStorage.getItem('token')
-      const res = await axios.post('http://import.meta.env.VITE_API_URL/career/generate',
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/career/generate`,
         { skills, goal },
         { headers: { Authorization: `Bearer ${token}` } }
       )

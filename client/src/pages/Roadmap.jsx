@@ -16,7 +16,7 @@ export default function Roadmap() {
 
     if (!role) { navigate("/onboarding"); return; }
 
-    axios.post("http://import.meta.env.VITE_API_URL/ai/roadmap", { interests, role })
+    axios.post(`${import.meta.env.VITE_API_URL}/ai/roadmap`, { interests, role })
       .then((res) => { setRoadmap(res.data); setLoading(false); })
       .catch(() => { setError("Failed to generate roadmap. Try again."); setLoading(false); });
   }, []);
