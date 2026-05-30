@@ -38,7 +38,7 @@ export default function Navbar() {
     }`;
 
   return (
-    <nav className="bg-[#0f172a] border-b border-white/10 px-6 md:px-10 h-20 flex items-center justify-between relative">
+    <nav className="bg-[#0b0d14] border-b border-white/10 px-6 md:px-10 h-20 flex items-center justify-between relative">
 
       {/* Logo */}
       <Link to="/" className="flex items-center gap-3">

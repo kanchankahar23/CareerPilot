@@ -27,7 +27,7 @@ export default function Register() {
 
     try {
       await axios.post(
-        `${import.meta.env.VITE_API_URL}auth/register`,
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         form
       );
 
@@ -41,7 +41,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center px-4 overflow-hidden relative">
+    <div className="min-h-screen bg-[#000000] flex items-center justify-center px-4 overflow-hidden relative">
 
       {/* Glow Effects */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-violet-600/20 blur-3xl rounded-full"></div>

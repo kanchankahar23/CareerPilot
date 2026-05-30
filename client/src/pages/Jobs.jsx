@@ -28,7 +28,7 @@ export default function Jobs() {
   );
 
   return (
-    <div className="min-h-screen bg-[#020617] px-4 py-10">
+    <div className="min-h-screen bg-[#01030a] px-4 py-10">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="text-3xl font-bold text-white mb-2">Job Opportunities</h1>

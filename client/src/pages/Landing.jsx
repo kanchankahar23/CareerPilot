@@ -35,7 +35,7 @@ const stats = [
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#111827] text-white overflow-hidden">
+    <div className="min-h-screen bg-black text-white overflow-hidden">
 
       {/* Hero Section */}
       <section className="relative px-6 md:px-12 pt-24 pb-20">

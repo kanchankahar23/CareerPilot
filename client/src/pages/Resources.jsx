@@ -19,7 +19,7 @@ export default function Resources() {
   }, []);
 
   if (loading) return (
-    <div className="min-h-screen bg-[#020617] flex flex-col items-center justify-center gap-4">
+    <div className="min-h-screen bg-[#01030a] flex flex-col items-center justify-center gap-4">
       <Loader className="text-violet-400 animate-spin" size={40} />
       <p className="text-gray-400">Curating learning resources...</p>
     </div>

@@ -68,7 +68,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B1120] text-white flex">
+    <div className="min-h-screen bg-[#01030a] text-white flex">
 
       {/* SIDEBAR */}
       <aside className="w-72 border-r border-white/5 bg-[#0F172A] hidden lg:flex flex-col justify-between">

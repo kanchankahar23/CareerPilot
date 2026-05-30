@@ -308,7 +308,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] px-2 py-10">
+    <div className="min-h-screen bg-[#01030a] px-2 py-10">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}

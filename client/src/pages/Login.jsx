@@ -42,7 +42,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] flex items-center justify-center px-4 overflow-hidden relative">
+    <div className="min-h-screen bg-[#00030c] flex items-center justify-center px-4 overflow-hidden relative">
 
       {/* Background Glow */}
       <div className="absolute top-10 left-10 w-72 h-72 bg-violet-600/20 blur-3xl rounded-full"></div>
