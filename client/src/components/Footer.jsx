@@ -4,7 +4,7 @@ import { ArrowUpRight,Mail } from "lucide-react";
 export default function Footer() {
   
   return (
-    <footer className="relative border-t border-white/10 bg-[#020617] overflow-hidden">
+    <footer className="relative border-t border-white/10 bg-[#000104] overflow-hidden">
 
       {/* Glow Effects */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-violet-600/10 blur-3xl rounded-full"></div>
